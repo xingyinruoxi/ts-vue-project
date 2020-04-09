@@ -1,5 +1,9 @@
 module.exports = {
     devServer: {
+        overlay: {
+            warning: false,
+            errors: false,
+        },
         before(app) {
             app.get("/api/list", (req, res) => {
                 res.json([
