@@ -22,10 +22,11 @@ export default class News extends Vue {
   features: Feature[] = [];
 
   @Emit()
-  addFeature(e: KeyboardEvent): void {
+  addFeature(e: KeyboardEvent): object {
     const inp = e.target as HTMLInputElement;
     this.features.push({ id: this.features.length + 1, name: inp.value });
     inp.value = "";
+    return this.features[this.features.length - 1];
   }
 
   async created() {

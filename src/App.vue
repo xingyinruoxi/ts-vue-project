@@ -1,14 +1,18 @@
 <template>
   <div id="app">
     <HelloWorld msg="hello组件" />
-    <News msg="msgmsg~" />
+    <News :msg="msg" @add-feature="onAddFeature" />
+    <el-form ref="loginForm"></el-form>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Ref } from "vue-property-decorator";
 import HelloWorld from "./components/HelloWorld.vue";
 import News from "./views/News/index.vue";
+import moment from "moment";
+import { Feature } from "@/types";
+import { Form } from "element-ui";
 
 @Component({
   components: {
@@ -16,7 +20,20 @@ import News from "./views/News/index.vue";
     News
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  msg = moment().format("YYYY/MM/DD");
+
+  @Ref() loginForm!: Form;
+
+  onAddFeature(f: Feature) {
+    console.log("===========", f.name);
+  }
+  onSubmit() {
+    this.loginForm.validate().then(isValid => {
+      console.log(isValid);
+    });
+  }
+}
 </script>
 
 <style>
